@@ -1,0 +1,3 @@
+# Exemple de fichier de configuration pour minigrep.
+ignore_case = true
+line_numbers = true

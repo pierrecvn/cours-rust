@@ -1,0 +1,21 @@
+# Manifeste du module de filtres d'image compilé en WebAssembly.
+[package]
+name = "image-filters"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+# "cdylib"  → produit une bibliothèque dynamique « C-compatible » : c'est le
+#             format dont wasm-pack a besoin pour générer le fichier .wasm.
+# "rlib"    → produit aussi une bibliothèque Rust classique : indispensable
+#             pour que `cargo test` puisse lier les tests natifs à la crate.
+# Sans "rlib", les tests ne compilent pas ; sans "cdylib", pas de .wasm.
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "0.2.123"
+
+# Optimisations pour réduire la taille du binaire .wasm produit en release.
+[profile.release]
+opt-level = "s" # optimise pour la taille ("s" = size) plutôt que la vitesse pure
+lto = true      # link-time optimization : élimine le code mort entre les crates

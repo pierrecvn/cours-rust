@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Mes notes</h1>
+        <button id="refresh-button" type="button">Rafraîchir</button>
+      </header>
+
+      <!-- Bandeau d'erreur : caché par défaut, rempli par showError() -->
+      <div id="error-banner" hidden>
+        <p id="error-message"></p>
+        <button id="retry-button" type="button">Réessayer</button>
+      </div>
+
+      <!-- Formulaire unique : création par défaut, édition quand une
+           note est sélectionnée (voir editingId dans main.ts) -->
+      <form id="note-form">
+        <h2 id="form-title">Nouvelle note</h2>
+        <input
+          id="title-input"
+          name="title"
+          type="text"
+          placeholder="Titre"
+          required
+        />
+        <textarea
+          id="content-input"
+          name="content"
+          rows="4"
+          placeholder="Contenu de la note…"
+          required
+        ></textarea>
+        <div class="form-actions">
+          <button id="submit-button" type="submit">Créer</button>
+          <button id="cancel-button" type="button" hidden>Annuler</button>
+        </div>
+      </form>
+
+      <ul id="notes-list"></ul>
+      <p id="empty-state" hidden>Aucune note pour l'instant. Créez la première !</p>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

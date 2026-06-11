@@ -1,0 +1,26 @@
+[package]
+name = "notes-desktop"
+version = "0.1.0"
+description = "Application desktop de notes branchée sur l'API du module 5 (cours Rust, module 6)"
+edition = "2024"
+
+# La bibliothèque porte un nom différent du binaire : c'est la convention
+# des projets Tauri 2 (le point d'entrée mobile vit dans la lib).
+[lib]
+name = "notes_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+# Génère à la compilation le « contexte » Tauri (config, icônes, permissions).
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Client HTTP asynchrone. `default-features = false` pour un build léger :
+# - "json"   → .json() côté requête et réponse
+# - "rustls" → TLS pur Rust (aucune dépendance système OpenSSL),
+#              inutile pour http://localhost mais prêt pour le HTTPS.
+reqwest = { version = "0.13", default-features = false, features = ["json", "rustls"] }
+thiserror = "2"

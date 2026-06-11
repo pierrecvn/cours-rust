@@ -1,0 +1,5 @@
+# Dépendances npm
+node_modules/
+
+# Build frontend (Vite)
+dist/

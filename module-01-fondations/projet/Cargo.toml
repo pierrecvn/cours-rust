@@ -1,0 +1,10 @@
+[package]
+name = "mystery-game"
+version = "0.1.0"
+edition = "2024"
+# Deux binaires cohabitent (le jeu et le convertisseur) :
+# `cargo run` sans option lance celui-ci.
+default-run = "mystery-game"
+
+[dependencies]
+rand = "0.9"

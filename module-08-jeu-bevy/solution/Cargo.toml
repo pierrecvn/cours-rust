@@ -1,0 +1,23 @@
+[package]
+name = "snake"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy = "0.18"
+rand = "0.10"
+
+# Pour accélérer drastiquement la compilation incrémentale pendant le développement,
+# tu peux activer le linkage dynamique de Bevy (à NE PAS utiliser pour une release) :
+#   bevy = { version = "0.18", features = ["dynamic_linking"] }
+# ou, sans toucher au Cargo.toml :
+#   cargo run --features bevy/dynamic_linking
+
+# Bevy est inutilisable en mode debug pur (framerate catastrophique).
+# On compile donc les DÉPENDANCES avec les optimisations maximales,
+# tout en gardant notre propre code en compilation rapide.
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.dev]
+opt-level = 1

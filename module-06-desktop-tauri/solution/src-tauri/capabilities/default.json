@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capacités de la fenêtre principale : uniquement le socle Tauri (invoke, events, contrôle de sa propre fenêtre). Tout le réseau passe par les commandes Rust, le frontend n'a besoin d'aucune permission supplémentaire.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

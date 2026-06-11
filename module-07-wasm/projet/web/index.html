@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Filtres d'image — Rust + WebAssembly</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.4rem; }
+    canvas { max-width: 100%; border: 1px solid #ccc; display: block; margin: 1rem 0; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .5rem 0; }
+    button { padding: .4rem .8rem; cursor: pointer; }
+    #status { color: #555; font-size: .9rem; min-height: 1.2em; }
+    #bench-results { font-family: monospace; white-space: pre; background: #f6f6f6; padding: .8rem; }
+    label { font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <h1>Filtres d'image — Rust compilé en WebAssembly</h1>
+
+  <div class="toolbar">
+    <input type="file" id="file-input" accept="image/*">
+    <button id="reset">Réinitialiser l'image</button>
+  </div>
+
+  <div class="toolbar">
+    <button id="grayscale">Niveaux de gris</button>
+    <button id="invert">Inversion</button>
+    <button id="brighten">Luminosité +20</button>
+    <button id="darken">Luminosité −20</button>
+    <button id="blur">Flou</button>
+    <label>rayon <input type="number" id="radius" value="3" min="1" max="20" style="width:4em"></label>
+  </div>
+
+  <div class="toolbar">
+    <button id="bench">Benchmark JS vs WASM</button>
+  </div>
+
+  <p id="status">Chargement du module WASM…</p>
+  <canvas id="canvas" width="640" height="400"></canvas>
+  <pre id="bench-results" hidden></pre>
+
+  <!-- type="module" est indispensable : la glue générée par wasm-pack
+       (--target web) est un module ES avec import/export. -->
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

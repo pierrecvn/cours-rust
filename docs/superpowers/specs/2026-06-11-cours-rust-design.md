@@ -42,7 +42,7 @@ cours-rust/
 | # | Module | Concepts clés | Projet |
 |---|--------|--------------|--------|
 | 1 | Fondations | rustup, Cargo, variables/mutabilité, types de base, fonctions, contrôle de flux, ownership & borrowing (introduction), `String` vs `&str` | Jeu du nombre mystère + convertisseur d'unités |
-| 2 | Structurer son code | structs, enums, `Option`/`Result`, `match`, modules, `Vec`, `HashMap`, dérive de traits (`Debug`, `Clone`) | Gestionnaire de tâches CLI avec persistance fichier (JSON) |
+| 2 | Structurer son code | structs, enums, `Option`/`Result`, `match`, modules, `Vec`, `HashMap`, dérive de traits (`Debug`, `Clone`) | Gestionnaire de tâches CLI avec persistance fichier (format texte simple, parsé à la main — serde/JSON arrive au module 3) |
 | 3 | CLI professionnel | traits, génériques, itérateurs & closures, crates externes (clap, serde, anyhow/thiserror), tests unitaires et d'intégration, organisation lib/bin | mini-grep avec options, regex et fichier de config |
 | 4 | Concurrence & lifetimes | threads, channels (mpsc), `Arc`/`Mutex`, lifetimes en profondeur, smart pointers (`Box`, `Rc`, `RefCell`), `Send`/`Sync` | Scanner de fichiers parallèle (statistiques sur une arborescence) |
 | 5 | Backend web | async/await, tokio, Axum, SQLx + SQLite, REST, JSON, extracteurs, gestion d'erreurs HTTP, state partagé | API REST de gestion de notes |

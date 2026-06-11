@@ -1,0 +1,5 @@
+# Artefacts de compilation Rust
+/target/
+
+# Schémas générés par tauri-build (recréés à chaque build)
+/gen/schemas/
