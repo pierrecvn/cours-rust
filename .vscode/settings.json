@@ -1,0 +1,20 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "module-01-fondations/projet/Cargo.toml",
+        "module-01-fondations/solution/Cargo.toml",
+        "module-02-structurer/projet/Cargo.toml",
+        "module-02-structurer/solution/Cargo.toml",
+        "module-03-cli-pro/projet/Cargo.toml",
+        "module-03-cli-pro/solution/Cargo.toml",
+        "module-04-concurrence/projet/Cargo.toml",
+        "module-04-concurrence/solution/Cargo.toml",
+        "module-05-backend-web/projet/Cargo.toml",
+        "module-05-backend-web/solution/Cargo.toml",
+        "module-06-desktop-tauri/projet/src-tauri/Cargo.toml",
+        "module-06-desktop-tauri/solution/src-tauri/Cargo.toml",
+        "module-07-wasm/projet/Cargo.toml",
+        "module-07-wasm/solution/Cargo.toml",
+        "module-08-jeu-bevy/projet/Cargo.toml",
+        "module-08-jeu-bevy/solution/Cargo.toml"
+    ]
+}
