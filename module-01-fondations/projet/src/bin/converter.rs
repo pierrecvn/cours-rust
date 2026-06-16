@@ -10,7 +10,7 @@
 //! Suis les étapes 8 à 10 de PROJET.md.
 
 // À retirer une fois le projet terminé (voir src/main.rs).
-#![allow(unused)]
+// #![allow(unused)]
 
 use std::io;
 
@@ -21,7 +21,7 @@ fn celsius_to_fahrenheit(celsius: f64) -> f64 {
     // TODO (étape 8) : implémente la formule.
     //   Rappel du cours : le corps d'une fonction peut être une simple
     //   expression finale, SANS `;` ni `return`.
-    todo!("convertir des Celsius en Fahrenheit")
+    celsius * 9.0 / 5.0 + 32.0
 }
 
 /// Convertit des degrés Fahrenheit en degrés Celsius.
@@ -30,7 +30,7 @@ fn celsius_to_fahrenheit(celsius: f64) -> f64 {
 fn fahrenheit_to_celsius(fahrenheit: f64) -> f64 {
     // TODO (étape 8) : implémente la formule.
     //   Attention : écris `5.0 / 9.0`, pas `5 / 9` (division entière = 0 !).
-    todo!("convertir des Fahrenheit en Celsius")
+    (fahrenheit - 32.0) * 5.0 / 9.0
 }
 
 /// Convertit des kilomètres en miles.
@@ -38,17 +38,31 @@ fn fahrenheit_to_celsius(fahrenheit: f64) -> f64 {
 /// 1 mile = 1,609344 km exactement.
 fn kilometers_to_miles(kilometers: f64) -> f64 {
     // TODO (étape 8) : divise par la constante KM_PER_MILE déclarée plus bas.
-    todo!("convertir des kilomètres en miles")
+
+    kilometers / KM_PER_MILE
 }
 
 /// Convertit des miles en kilomètres.
 fn miles_to_kilometers(miles: f64) -> f64 {
     // TODO (étape 8) : multiplie par KM_PER_MILE.
-    todo!("convertir des miles en kilomètres")
+    miles * KM_PER_MILE
 }
 
 /// Nombre exact de kilomètres dans un mile (définition internationale).
 const KM_PER_MILE: f64 = 1.609344;
+
+fn read_line() -> Option<String> {
+    let mut input = String::new();
+    let bytes_read: usize = io::stdin()
+        .read_line(&mut input)
+        .expect("echec de la lecture");
+
+    if bytes_read == 0 {
+        None
+    } else {
+        Some(input.trim().to_string())
+    }
+}
 
 fn main() {
     println!("=== Convertisseur d'unités ===");
@@ -67,7 +81,55 @@ fn main() {
     //        println!("{value} °C = {result:.2} °F");
     //      (`:.2` arrondit l'affichage à 2 décimales.)
 
-    todo!("suis l'étape 9 de PROJET.md");
+    loop {
+        println!();
+        println!("1. Celsius     → Fahrenheit");
+        println!("2. Fahrenheit  → Celsius");
+        println!("3. Kilomètres  → Miles");
+        println!("4. Miles       → Kilomètres");
+        println!("q. Quitter");
+        println!("Ton choix :");
+
+        let Some(choice) = read_line() else {
+            break;
+        };
+
+        if choice == "q" {
+            break;
+        };
+
+        let good_choice: bool = matches!(choice.as_str(), "1" | "2" | "3" | "4");
+        if !good_choice {
+            println!("Choix inconnu {choice}");
+            continue;
+        }
+
+        println!("Valeur à convertir : ");
+        let Some(value_orignial) = read_line() else {
+            break;
+        };
+
+        let value: f64 = match value_orignial.parse() {
+            Ok(number) => number,
+            Err(_) => {
+                println!("{value_orignial} n'est pas un nombre valide !");
+                continue;
+            }
+        };
+
+        let output: String = match choice.as_str() {
+            "1" => format!("{value} °C = {:.2} °F", celsius_to_fahrenheit(value)),
+            "2" => format!("{value} °F = {:.2} °C", fahrenheit_to_celsius(value)),
+            "3" => format!("{value} km = {:.2} mi", kilometers_to_miles(value)),
+            "4" => format!("{value} mi = {:.2} km", miles_to_kilometers(value)),
+
+            _ => unreachable!("choix deja validé plus haut"),
+        };
+        println!("{output}");
+    }
+    println!("Salut !")
+
+    // todo!("suis l'étape 9 de PROJET.md");
 }
 
 // ---------------------------------------------------------------------------

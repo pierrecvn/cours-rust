@@ -10,7 +10,7 @@
 // `#![allow(unused)]` évite les avertissements « import inutilisé » tant que le
 // squelette n'est pas terminé. Retire cette ligne à la fin du projet : les
 // avertissements du compilateur redeviendront tes alliés.
-#![allow(unused)]
+// #![allow(unused)]
 
 // Les trois imports dont tu auras besoin (étapes 2 à 5) :
 use rand::Rng; // le trait qui fournit `random_range`
@@ -24,25 +24,62 @@ fn main() {
     // TODO (étape 2) : génère le nombre secret.
     //   let secret: u32 = rand::rng().random_range(...);
     //   Indice : un range inclusif s'écrit `1..=100`.
+    let secret: u32 = rand::rng().random_range(1..=100);
+    println!("(triche : le nombre secret est {})", secret);
 
     // TODO (étape 6) : déclare un compteur d'essais mutable, puis ouvre une
     //   boucle `loop { ... }` qui englobe les étapes 3 à 5.
 
-    // TODO (étape 3) : lis la proposition du joueur.
-    //   - crée une `String` vide et mutable ;
-    //   - `io::stdin().read_line(&mut ...)` la remplit (pourquoi `&mut` ?
-    //     relis la section ownership du cours !) ;
-    //   - `read_line` retourne un `Result` : déballe-le avec `.expect(...)`.
+    let mut essai: u32 = 0;
 
-    // TODO (étape 4) : convertis le texte en nombre.
-    //   `input.trim().parse()` retourne un `Result<u32, _>` : utilise un
-    //   `match` avec les bras `Ok(n)` et `Err(_)`.
-    //   En cas d'erreur (étape 7) : affiche un message et `continue;`.
+    loop {
+        // TODO (étape 3) : lis la proposition du joueur.
+        //   - crée une `String` vide et mutable ;
+        //   - `io::stdin().read_line(&mut ...)` la remplit (pourquoi `&mut` ?
+        //     relis la section ownership du cours !) ;
+        //   - `read_line` retourne un `Result` : déballe-le avec `.expect(...)`.
 
-    // TODO (étape 5) : compare la proposition au secret.
-    //   `guess.cmp(&secret)` retourne un `Ordering` : fais un `match` sur ses
-    //   trois variantes (`Less`, `Greater`, `Equal`). Sur `Equal`, affiche le
-    //   nombre d'essais et `break;`.
+        let mut input: String = String::new();
 
-    todo!("suis les étapes 2 à 7 de PROJET.md");
+        let bytes_read: usize = io::stdin()
+            .read_line(&mut input)
+            .expect("echec de la lecture");
+
+        if bytes_read == 0 {
+            println!("\nFin tchuss ");
+            return;
+        }
+
+        // TODO (étape 4) : convertis le texte en nombre.
+        //   `input.trim().parse()` retourne un `Result<u32, _>` : utilise un
+        //   `match` avec les bras `Ok(n)` et `Err(_)`.
+        //   En cas d'erreur (étape 7) : affiche un message et `continue;`.
+        let guess: u32 = match input.trim().parse() {
+            Ok(number) => number,
+            Err(_) => {
+                println!(
+                    "« {} » n'est pas un nombre entre 1 et 100, réessaie.",
+                    input.trim()
+                );
+                continue;
+            }
+        };
+
+        essai += 1;
+
+        // TODO (étape 5) : compare la proposition au secret.
+        //   `guess.cmp(&secret)` retourne un `Ordering` : fais un `match` sur ses
+        //   trois variantes (`Less`, `Greater`, `Equal`). Sur `Equal`, affiche le
+        //   nombre d'essais et `break;`.
+        match guess.cmp(&secret) {
+            Ordering::Less => println!(" Valeurs trop petite "),
+            Ordering::Greater => println!(" Valeurs trop Grande "),
+            Ordering::Equal => {
+                println!(" BRAVO !! vous avez fini en {essai} essai");
+                break;
+            }
+        }
+    }
+
+    // todo!("suis les étapes 2 à 7 de PROJET.md");
 }
